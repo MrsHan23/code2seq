@@ -83,7 +83,7 @@ public class TFIDF {
     public static String getSentence(String sentence, List<String> collection, int N) {
 
         // split sentence into words 
-        List<String> sentenceList = Arrays.asList(sentence.split("\\s"));
+        List<String> sentenceList = Arrays.asList(sentence.split(" "));
 
         // calculate tfidf for each term in sentence and put store the results in a hashmap
         HashMap<String, Double> tfIdfMap = new HashMap<>();
@@ -101,7 +101,7 @@ public class TFIDF {
         List<String> result = tfIdfMap.keySet().stream().limit(N).collect(Collectors.toList());
 
         // join keywords in a single string
-        return String.join("\\s", result);
+        return String.join(" ", result);
     }
     
 }

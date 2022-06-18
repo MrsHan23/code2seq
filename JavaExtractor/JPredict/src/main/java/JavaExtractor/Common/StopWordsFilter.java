@@ -29,12 +29,12 @@ public class StopWordsFilter {
 
         setup();
         
-        String[] allWords = input.split("\\s");
+        String[] allWords = input.split(" ");
         StringBuilder builder = new StringBuilder();
         for(String word: allWords) {
             if(! stopwords.contains(word)) {
                 builder.append(word);
-                builder.append("\\s");
+                builder.append(" ");
             }
         }
         return builder.toString().trim();
