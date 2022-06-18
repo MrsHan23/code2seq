@@ -3,12 +3,15 @@ package JavaExtractor.Visitors;
 import JavaExtractor.Common.CommandLineValues;
 import JavaExtractor.Common.Common;
 import JavaExtractor.Common.MethodContent;
+
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.comments.Comment;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @SuppressWarnings("StringEquality")
 public class FunctionVisitor extends VoidVisitorAdapter<Object> {
@@ -26,8 +29,41 @@ public class FunctionVisitor extends VoidVisitorAdapter<Object> {
         super.visit(node, arg);
     }
 
+    /** Get comments in a given method
+     * 
+     * @param node - a method node
+     * @return comments contained in a method
+     */
+    private List<String> getCommentsMethod(Node node){
+        // get all comments contained in node
+        List<Comment> comments = node.getAllContainedComments();
+
+        // add comments in lower case to corpus/collection of comments (exclude orphan comments)
+        List<String> corpus = new ArrayList<>();
+        for (Comment comment: comments){
+            // exclude orphan comments
+            if (!comment.isOrphan()){
+                corpus.add(comment.getContent().toLowerCase());
+            }
+        }
+
+        // check if node is associated with a comment and add it to corpus/collection of comments
+        if (node.getComment() != null){
+            corpus.add(node.getComment().getContent().toLowerCase());
+        }
+        return corpus;
+    }
+
     private void visitMethod(MethodDeclaration node) {
-        LeavesCollectorVisitor leavesCollectorVisitor = new LeavesCollectorVisitor();
+        LeavesCollectorVisitor leavesCollectorVisitor;
+
+        // check if TFIDF is enabled and get collection of comments in current method
+        if (m_CommandLineValues.IncludeTFIDF){
+            leavesCollectorVisitor = new LeavesCollectorVisitor(m_CommandLineValues , getCommentsMethod(node));
+        } else {
+            leavesCollectorVisitor = new LeavesCollectorVisitor(m_CommandLineValues , new ArrayList<>());
+        }
+        
         leavesCollectorVisitor.visitDepthFirst(node);
         ArrayList<Node> leaves = leavesCollectorVisitor.getLeaves();
 
