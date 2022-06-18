@@ -61,6 +61,7 @@ public class Property {
             put("BinaryExpr:times", "Mul");
             put("BinaryExpr:xor", "Xor");
             put("BlockStmt", "Bk");
+            put("BlockComment", "BkC");
             put("BooleanLiteralExpr", "BoolEx");
             put("CastExpr", "Cast");
             put("CatchClause", "Catch");
@@ -68,6 +69,7 @@ public class Property {
             put("ClassExpr", "ClsEx");
             put("ClassOrInterfaceDeclaration", "ClsD");
             put("ClassOrInterfaceType", "Cls");
+            put("Comment", "Comm");
             put("ConditionalExpr", "Cond");
             put("ConstructorDeclaration", "Ctor");
             put("DoStmt", "Do");
@@ -85,8 +87,10 @@ public class Property {
             put("InstanceOfExpr", "InstanceOf");
             put("IntegerLiteralExpr", "IntEx");
             put("IntegerLiteralMinValueExpr", "IntMinEx");
+            put("JavadocComment", "JC");
             put("LabeledStmt", "Labeled");
             put("LambdaExpr", "Lambda");
+            put("LineComment", "LC");
             put("LongLiteralExpr", "LongEx");
             put("MarkerAnnotationExpr", "MarkerExpr");
             put("MemberValuePair", "Mvp");

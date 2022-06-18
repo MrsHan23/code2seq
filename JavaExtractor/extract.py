@@ -25,7 +25,9 @@ def ParallelExtractDir(args, dir):
 def ExtractFeaturesForDir(args, dir, prefix):
     command = ['java', '-Xmx100g', '-XX:MaxNewSize=60g', '-cp', args.jar, 'JavaExtractor.App',
                '--max_path_length', str(args.max_path_length), '--max_path_width', str(args.max_path_width),
-               '--dir', dir, '--num_threads', str(args.num_threads)]
+               '--dir', dir, '--num_threads', str(args.num_threads), '--include_comments', str(args.include_comments),
+               '--exclude_stopwords', str(args.exclude_stopwords), '--include_tfidf', str(args.include_tfidf),
+               '--number_keywords', str(args.number_keywords)]
 
     # print command
     # os.system(command)
@@ -82,11 +84,22 @@ if __name__ == '__main__':
     parser.add_argument("-j", "--jar", dest="jar", required=True)
     parser.add_argument("-dir", "--dir", dest="dir", required=False)
     parser.add_argument("-file", "--file", dest="file", required=False)
+    parser.add_argument("-inclcomm", "--include_comments", dest="include_comments", required=False, default=False)
+    parser.add_argument("-exclstop", "--exclude_stopwords", dest="exclude_stopwords", required=False, default=False)
+    parser.add_argument("-incltfidf", "--include_tfidf", dest="include_tfidf", required=False, default=False)
+    parser.add_argument("-numkeywords", "--number_keywords", dest="number_keywords", required=False, default=4)
     args = parser.parse_args()
+
+    # check if include_comments is set before using tfidf and stopword removal
+    if ((args.exclude_stopwords is not None) or (args.include_tfidf is not None)) and (args.include_comments is None):
+        print("You must include the comments")
+        exit(-1)
 
     if args.file is not None:
         command = 'java -cp ' + args.jar + ' JavaExtractor.App --max_path_length ' + \
-                  str(args.max_path_length) + ' --max_path_width ' + str(args.max_path_width) + ' --file ' + args.file
+                  str(args.max_path_length) + ' --max_path_width ' + str(args.max_path_width) + ' --file ' + args.file + \
+                  ' --include_comments ' + str(args.include_comments) + '--exclude_stopwords' + str(args.exclude_stopwords) + \
+                 '--include_tfidf' + str(args.include_tfidf) + '--number_keywords' + str(args.number_keywords)
         os.system(command)
     elif args.dir is not None:
         subdirs = get_immediate_subdirectories(args.dir)

@@ -32,6 +32,17 @@ TARGET_VOCAB_SIZE=26347
 NUM_THREADS=64
 PYTHON=python3
 ###########################################################
+# Change the following values to preprocess a new dataset with comments integrated
+# INCLUDE_COMMENTS - set to true to include raw comments in the dataset/ast
+# To use the following values, INCLUDE_COMMENTS should be set to true
+# EXCLUDE_STOPWORDS - set to true to remove stopwords from comments
+# INCLUDE_TFIDF - set to true to use TFIDF and get the top keywords from comments
+# NUMBER_KEYWORDS - the number of keywords to get from comments using TFIDF
+INCLUDE_COMMENTS=false
+EXCLUDE_STOPWORDS=false
+INCLUDE_TFIDF=false
+NUMBER_KEYWORDS=4
+###########################################################
 
 TRAIN_DATA_FILE=${DATASET_NAME}.train.raw.txt
 VAL_DATA_FILE=${DATASET_NAME}.val.raw.txt
@@ -42,13 +53,13 @@ mkdir -p data
 mkdir -p data/${DATASET_NAME}
 
 echo "Extracting paths from validation set..."
-${PYTHON} JavaExtractor/extract.py --dir ${VAL_DIR} --max_path_length 8 --max_path_width 2 --num_threads ${NUM_THREADS} --jar ${EXTRACTOR_JAR} > ${VAL_DATA_FILE} 2>> error_log.txt
+${PYTHON} JavaExtractor/extract.py --dir ${VAL_DIR} --max_path_length 8 --max_path_width 2 --include_comments ${INCLUDE_COMMENTS} --exclude_stopwords ${EXCLUDE_STOPWORDS} --num_threads ${NUM_THREADS} --include_tfidf ${INCLUDE_TFIDF} --number_keywords ${NUMBER_KEYWORDS} --jar ${EXTRACTOR_JAR} > ${VAL_DATA_FILE} 2>> error_log.txt 
 echo "Finished extracting paths from validation set"
 echo "Extracting paths from test set..."
-${PYTHON} JavaExtractor/extract.py --dir ${TEST_DIR} --max_path_length 8 --max_path_width 2 --num_threads ${NUM_THREADS} --jar ${EXTRACTOR_JAR} > ${TEST_DATA_FILE} 2>> error_log.txt
+${PYTHON} JavaExtractor/extract.py --dir ${TEST_DIR} --max_path_length 8 --max_path_width 2 --include_comments ${INCLUDE_COMMENTS} --exclude_stopwords ${EXCLUDE_STOPWORDS} --num_threads ${NUM_THREADS} --include_tfidf ${INCLUDE_TFIDF} --number_keywords ${NUMBER_KEYWORDS} --num_threads ${NUM_THREADS} --jar ${EXTRACTOR_JAR} > ${TEST_DATA_FILE} 2>> error_log.txt 
 echo "Finished extracting paths from test set"
 echo "Extracting paths from training set..."
-${PYTHON} JavaExtractor/extract.py --dir ${TRAIN_DIR} --max_path_length 8 --max_path_width 2 --num_threads ${NUM_THREADS} --jar ${EXTRACTOR_JAR} | shuf > ${TRAIN_DATA_FILE} 2>> error_log.txt
+${PYTHON} JavaExtractor/extract.py --dir ${TRAIN_DIR} --max_path_length 8 --max_path_width 2 --include_comments ${INCLUDE_COMMENTS} --exclude_stopwords ${EXCLUDE_STOPWORDS} --num_threads ${NUM_THREADS} --include_tfidf ${INCLUDE_TFIDF} --number_keywords ${NUMBER_KEYWORDS} --num_threads ${NUM_THREADS}  --jar ${EXTRACTOR_JAR} | shuf > ${TRAIN_DATA_FILE} 2>> error_log.txt
 echo "Finished extracting paths from training set"
 
 TARGET_HISTOGRAM_FILE=data/${DATASET_NAME}/${DATASET_NAME}.histo.tgt.c2s
