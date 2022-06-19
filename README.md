@@ -17,6 +17,23 @@ The main changes are made to the `JavaExtractor` classes:
 
 Edit the file [preprocess.sh](preprocess.sh) and follow the instructions there to include comments in the model and, use stopword removal and TF-IDF.
 
+-----------------
+
+The diffent models were preprocessed and trained with the DelftBlue Supercomputer (DHPC).
+
+Preprocessing time with java-small:
+- Code2Seq without comments: ~30 min
+- Code2Seq + comments: ~40 min
+- Code2Seq + stopword removal: ~50-60 min
+- Code2Seq + TF-IDF: ~50-60 min
+
+Training time with java-small:
+- All models: ~3h 30 min
+
+Evaluation time with java-small:
+- All models: ~5-10 min
+
+
 Table of Contents
 =================
   * [Requirements](#requirements)
