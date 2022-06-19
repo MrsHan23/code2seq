@@ -9,6 +9,7 @@ The official network implementation repository is [https://github.com/tech-srl/c
 -----------------
 
 This implementation includes comments when preprocessing the datasets. Additionally, stopword removal and TF-IDF are used to transform the content of the comments.
+TF-IDF extracts a certain number of relevant keywords from the comments.
 
 The main changes are made to the `JavaExtractor` classes: 
 - `FunctionVisitor`: gets all comments in a method and passes them to a `LeavesCollectorVisitor` instance.
