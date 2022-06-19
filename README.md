@@ -6,6 +6,16 @@ This is an **UNOFFICIAL** implementation of the model described in:
 This is a TensorFlow 2.1 fork of the network inplementation, with Java and C# extractors for preprocessing the input code.
 The official network implementation repository is [https://github.com/tech-srl/code2seq](https://github.com/tech-srl/code2seq)
 
+-----------------
+
+This implementation includes comments when preprocessing the datasets. Additionally, stopword removal and TF-IDF are used to transform the content of the comments.
+
+The main changes are made to the `JavaExtractor` classes: 
+- `FunctionVisitor`: gets all comments in a method and passes them to a `LeavesCollectorVisitor` instance.
+- `LeavesCollectorVisitor`: checks if a node is associated with a comment. The comments are processed and then added to the leaves of the AST. Stopword removal and TF-IDF are also applied here.
+
+Edit the file [preprocess.sh](preprocess.sh) and follow the instructions there to include comments in the model and, use stopword removal and TF-IDF.
+
 Table of Contents
 =================
   * [Requirements](#requirements)
@@ -25,7 +35,7 @@ Table of Contents
 ## Quickstart
 ### Step 0: Cloning this repository
 ```
-git clone https://github.com/Kolkir/code2seq/
+git clone https://github.com/MrsHan23/code2seq/
 cd code2seq
 ```
 
