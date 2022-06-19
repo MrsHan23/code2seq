@@ -19,7 +19,7 @@ Edit the file [preprocess.sh](preprocess.sh) and follow the instructions there t
 
 -----------------
 
-The diffent models were preprocessed and trained with the DelftBlue Supercomputer (DHPC).
+The different models were preprocessed and trained with the DelftBlue Supercomputer (DHPC).
 
 Preprocessing time with java-small:
 - Code2Seq without comments: ~30 min
