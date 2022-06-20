@@ -3,7 +3,7 @@ This is an **UNOFFICIAL** implementation of the model described in:
 
 [Uri Alon](http://urialon.cswp.cs.technion.ac.il), [Shaked Brody](http://www.cs.technion.ac.il/people/shakedbr/), [Omer Levy](https://levyomer.wordpress.com) and [Eran Yahav](http://www.cs.technion.ac.il/~yahave/), "code2seq: Generating Sequences from Structured Representations of Code" [[PDF]](https://openreview.net/pdf?id=H1gKYo09tX)
 
-This is a TensorFlow 2.1 fork of the network inplementation, with Java and C# extractors for preprocessing the input code.
+This is a TensorFlow 2.1 fork of the [Kolkir](https://github.com/Kolkir/code2seq)'s network inplementation , with Java and C# extractors for preprocessing the input code.
 The official network implementation repository is [https://github.com/tech-srl/code2seq](https://github.com/tech-srl/code2seq)
 
 -----------------
