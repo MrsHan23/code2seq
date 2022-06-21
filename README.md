@@ -19,6 +19,9 @@ Edit the file [preprocess.sh](preprocess.sh) and follow the instructions there t
 
 -----------------
 
+This repository contains the code used for the research "Comment Or Not To Comment: The Effects Of Comments On Method Name Prediction" conducted as part of the course [Research Project CSE3000](https://github.com/TU-Delft-CSE/Research-Project) of the CSE Bachelor at TU Delft.
+
+-----------------
 The different models were preprocessed and trained with the DelftBlue Supercomputer (DHPC).
 
 Preprocessing time with java-small:
